@@ -1,0 +1,405 @@
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+int main(){
+
+    int i;
+    
+    string menupengembang[3]={
+        "Edit list film",
+        "Edit list menu",
+        "Exit"
+    };
+    string editfilm[5]={
+        "Menambahkan film baru",
+        "Mengubah nama",
+        "Mengubah harga",
+        "Mengubah jam tayang",
+        "Exit"
+    };
+    string editmenu[4]={
+        "Menambah menu baru",
+        "Mengubah nama",
+        "Mengubah harga",
+        "Exit"
+    };
+
+    vector<string>namafilm={
+        "film 1",
+        "film 2",
+        "film 3"
+    };
+    vector<int>hargafilm={
+        12,
+        13,
+        14
+    };
+    vector<int>jumlahjamtayang={
+        3,
+        2,
+        2
+    };
+    vector<int>jam={
+        9,13,18,
+        9,18,
+        10,15
+
+    };
+    vector<int>menit={
+        15,30,45,
+        15,30,
+        15,30
+    };
+
+    bool ulang=true;
+    bool modepengembang=true;
+    bool looppengembang= true;
+    bool loopeditfilm= true;
+    bool loopeditmenu= true;
+    int n=0;// buat ngitung jam tayang
+    int total;
+    int pilihanfilm;
+    int pilihanjam;
+    int jumlahtiket;
+    int ubahjumlahjam;
+    int milihmenu=0;//menyimpan sementara angka di menupengembang
+    int ubahharga=0;
+    int ubahjam=0;
+    string namakonsumen;
+    string nk;//namakonsumen
+    string namabaru;
+    string hurufpnb;//menyimpan sementara huruf di menupengembang
+    vector<string>kursi;
+    vector<int>pesananmenu;
+    vector<int>banyakpesanan;
+    vector<int>subtotal;
+
+    vector<string>namamenu={
+        "makan 1",
+        "makan 2",
+        "makan 3",
+        "minum 1",
+        "minum 2",
+        "minum 3"
+    };
+    vector<int>hargamenu={
+        12,
+        12,
+        12,
+        12,
+        12,
+        12
+    };
+
+    
+    do{
+        do{
+            
+            cout<<"==================================="<<endl;
+            cout<<"Pesanan atas nama: ";
+            
+            getline(cin,nk);
+            namakonsumen=nk;
+            
+            if (namakonsumen=="password"){
+                looppengembang=true;
+            }else{
+                looppengembang=false;
+                modepengembang=false;
+            }
+                while (looppengembang)
+                {
+                    loopeditfilm=true;
+                    loopeditmenu=true;
+                    cout<<"==================================="<<endl;
+                    for (i=0;i<sizeof(menupengembang)/sizeof(string);i++){
+                    cout<<i+1<<". "<<menupengembang[i]<<endl;
+                    }
+                    cout<<"Memilih opsi nomer =";
+                    cin>>milihmenu;
+                    cin.get();
+                    switch (milihmenu)
+                    {
+                    case 1:
+                        while (loopeditfilm)
+                        {
+                            cout<<"==================================="<<endl;
+                            for(i=0;i<sizeof(editfilm)/sizeof(string);i++){
+                                cout<<i+1<<". "<<editfilm[i]<<endl;
+                            }
+                            cout<<"Memilih opsi nomer =";
+                            cin>>milihmenu;
+                            cin.get();
+                            switch (milihmenu)
+                            {
+                            case 1:
+                                cout<<"==================================="<<endl;
+                                cout<<"Nama film = ";
+                                getline(cin,namabaru);
+                                namafilm.push_back(namabaru);
+                                cout<<"==================================="<<endl;
+                                cout<<"Harga ticket film = ";
+                                cin>>ubahharga;
+                                cin.get();
+                                hargafilm.push_back(ubahharga);
+                                cout<<"==================================="<<endl;
+                                cout<<"Akan memiliki jam tayang sebanyak = ";
+                                cin>>ubahjumlahjam;
+                                cin.get();
+                                jumlahjamtayang.push_back(ubahjumlahjam);
+                                cout<<"==================================="<<endl;
+                                for(i=0;i<ubahjumlahjam;i++){
+                                    cout<<"Untuk jam tayang yang ke - "<<i+1;
+                                    cout<<" Akan tayang pada jam = ";
+                                    cin>>ubahjam;
+                                    cin.get();
+                                    jam.push_back(ubahjam);
+                                    cout<<"Menit ke = ";
+                                    cin>>ubahjam;
+                                    cin.get();
+                                    menit.push_back(ubahjam);
+                                }
+                                break;
+                            case 2:
+                                cout<<"==================================="<<endl;
+                                cout<<"List film yang sedang tayang :"<<endl;
+                                for (i=0;i<namafilm.size();i++){
+                                    cout<<i+1<<". "<<namafilm[i]<<" ("<<hargafilm[i]<<"K)"<<endl;
+                                }
+                                cout<<"Akan mengubah film pada urutan ke = ";
+                                cin>>milihmenu;
+                                cin.get();
+                                cout<<"==================================="<<endl;
+                                cout<<"Akan diubah menjadi = ";
+                                getline(cin,namabaru);
+                                namafilm.at(milihmenu-1)=namabaru;
+
+                                break;    
+                            case 3:
+                                cout<<"==================================="<<endl;
+                                cout<<"List film yang sedang tayang :"<<endl;
+                                for (i=0;i<namafilm.size();i++){
+                                    cout<<i+1<<". "<<namafilm[i]<<" ("<<hargafilm[i]<<"K)"<<endl;
+                                }
+                                cout<<"Akan mengubah harga tiket pada film urutan ke ?";
+                                cin>>milihmenu;
+                                cin.get();
+                                cout<<"==================================="<<endl;
+                                cout<<"Akan diubah menjadi = ";
+                                cin>>ubahharga;
+                                cin.get();
+                                hargafilm.at(milihmenu-1)=ubahharga;
+                                break;
+                            case 4:
+                                cout<<"==================================="<<endl;
+                                cout<<"List film yang sedang tayang :"<<endl;
+                                for (i=0;i<namafilm.size();i++){
+                                    cout<<i+1<<". "<<namafilm[i]<<" ("<<hargafilm[i]<<"K)"<<endl;
+                                }
+                                cout<<"Akan mengubah jam tayang film pada urutan ke ?";
+                                cin>>milihmenu;
+                                cin.get();
+                                cout<<"==================================="<<endl;
+                                for (i=0;i<milihmenu-1;i++){
+                                    n+=jumlahjamtayang[i];
+                                }
+                                for (i=0;i<jumlahjamtayang[milihmenu-1];i++){
+                                    cout<<i+1<<". "<<" ("<<jam[i+n]<<":"<<menit[i+n]<<")"<<endl;
+                                    cout<<"Jam tayang ke - "<<i+1<<" akan diubah menjadi jam = ";
+                                    cin>>ubahjam;
+                                    cin.get();
+                                    jam.at(milihmenu-1)=ubahjam;
+                                    cout<<"Menit ke = ";
+                                    cin>>ubahjam;
+                                    cin.get();
+                                    menit.at(milihmenu-1)=ubahjam;
+                                }
+                                break;
+                            case 5:
+                                loopeditfilm=false;
+                                break;
+                            default:
+                                
+                                break;
+                            }
+                        }
+                        break;
+                    case 2:
+                        while (loopeditmenu)
+                        {
+                            cout<<"==================edit menu================="<<endl;
+
+                            for (i=0;i<sizeof(editmenu)/sizeof(string);i++){
+                            cout<<i+1<<". "<<editmenu[i]<<endl;
+                            }
+                            cout<<"Memilih opsi nomer =";
+                            cin>>milihmenu;
+                            cin.get();
+                            switch (milihmenu)
+                            {
+                            case 1:
+                                cout<<"==================================="<<endl;
+                                cout<<"Nama menu = ";
+                                getline(cin,namabaru);
+                                namamenu.push_back(namabaru);
+                                cout<<"==================================="<<endl;
+                                cout<<"Harga menu = ";
+                                cin>>ubahharga;
+                                cin.get();
+                                hargamenu.push_back(ubahharga);
+                                break;
+                            case 2:
+                                cout<<"==================================="<<endl;
+                                cout<<"Menu yang tersedia :"<<endl;
+                                for (i=0;i<namamenu.size();i++){
+                                    cout<<i+1<<". "<<namamenu[i]<<" ("<<hargamenu[i]<<"K)"<<endl;
+                                }
+                                cout<<"Ingin mengubah menu pada nomer = ";
+                                cin>>milihmenu;
+                                cin.get();
+                                cout<<"==================================="<<endl;
+                                cout<<"Akan diubah menjadi = "<<endl;
+                                getline(cin,namabaru);
+                                namamenu.at(milihmenu-1)=namabaru;
+                                break;
+                            case 3:
+                                cout<<"==================================="<<endl;
+                                cout<<"Menu yang tersedia :"<<endl;
+                                for (i=0;i<namamenu.size();i++){
+                                    cout<<i+1<<". "<<namamenu[i]<<" ("<<hargamenu[i]<<"K)"<<endl;
+                                }
+                                cout<<"Ingin mengubah menu pada nomer?";
+                                cin>>milihmenu;
+                                cin.get();
+                                cout<<"==================================="<<endl;
+                                cout<<"Akan diubah menjadi = "<<endl;
+                                cin>>ubahharga;
+                                hargamenu.at(milihmenu-1)=ubahharga;
+                                break;
+                            case 4:
+                                loopeditmenu=false;
+                                break;
+                            default:
+                                break;
+                            }
+                        }
+                        break;
+                    case 3:
+                        looppengembang=false;
+                        break;
+                    default:
+                        break;
+                    }
+                }
+        } while(modepengembang);
+
+        cout<<"==================================="<<endl;
+        cout<<"List film yang sedang tayang :"<<endl;
+        for (i=0;i<namafilm.size();i++){
+            cout<<i+1<<". "<<namafilm[i]<<" ("<<hargafilm[i]<<"K)"<<endl;
+        }
+        cout<<"Memilih film pada urutan ke ?";
+        cin>>pilihanfilm;
+        cin.get();
+
+        cout<<"==================================="<<endl;
+        cout<<"Film tayang pada pukul :"<<endl;
+        n=0;
+            for (i=0;i<pilihanfilm-1;i++){
+                n+=jumlahjamtayang[i];
+        }
+
+        for (i=0;i<jumlahjamtayang[pilihanfilm-1];i++){
+            cout<<i+1<<". "<<" ("<<jam[i+n]<<":"<<menit[i+n]<<")"<<endl;
+        }
+        cout<<"Ingin memesan tiket untuk jam tayang pada urutan ke = ";
+        cin>>pilihanjam;
+        cin.get();
+
+        cout<<"==================================="<<endl;
+        cout<<"Ingin memesan tiket sebanyak = ";
+        cin>>jumlahtiket;
+        cin.get();
+        subtotal.push_back(jumlahtiket*hargafilm[pilihanfilm-1]);
+
+        cout<<"==================================="<<endl;
+        cout<<"Posisi kursi yang masih tersedia :"<<endl;
+        cout<<"-----------------layar-------------------"<<endl;
+        cout<<"A 	|A1|A2|A3|A4|	|A5|A6|A7|A8|"<<endl;
+        cout<<"B 	|B1|B2|B3|B4|	|B5|B6|B7|B8|"<<endl;
+        cout<<"C 	|C1|C2|C3|C4|	|C5|C6|C7|C8|"<<endl;
+        cout<<"D 	|D1|D2|D3|D4|	|D5|D6|D7|D8|"<<endl;
+        cout<<"E 	|E1|E2|E3|E4|	|E5|E6|E7|E8|"<<endl;
+        cout<<"F 	|F1|F2|F3|F4|	|F5|F6|X |F8|"<<endl;
+        cout<<"G	|G1|G2|G3|G4|	|G5|G6|G7|X |"<<endl;
+        cout<<"*X = menandakan kursi telah dipesan"<<endl;
+        string a=" ";
+        for(i=0;i<jumlahtiket;i++){
+            cout<<"Anda ingin memilih kursi pada nomer?";
+            cin>>a;
+            cin.get();
+            kursi.push_back(a);
+        }
+        bool pesanmenu=true;
+        string p;// untuk if pesan lagi atau tidak
+        int psnmnsmt=0;
+        int bykpsnsmt=0;
+        while(pesanmenu){
+        cout<<"==================================="<<endl;
+        cout<<"Menu yang tersedia :"<<endl;
+        for (i=0;i<namamenu.size();i++){
+            cout<<i+1<<". "<<namamenu[i]<<" ("<<hargamenu[i]<<"K)"<<endl;
+        }
+        cout<<"Ingin memesan menu pada nomer?";
+        cin>>psnmnsmt;
+        cin.get();
+        pesananmenu.push_back(psnmnsmt);
+        cout<<"Ingin memesan sebanyak?";
+        cin>>bykpsnsmt;
+        cin.get();
+        banyakpesanan.push_back(bykpsnsmt);
+        subtotal.push_back(bykpsnsmt*hargamenu[psnmnsmt-1]);
+        cout<<"Ingin memesan lagi?(Y/N)";
+        cin>>p;
+        if (p=="n"||p=="N"){
+            pesanmenu=false;
+            }
+            }
+        for(i=0;i<subtotal.size();i++){
+            total+=subtotal[i];
+        }
+        cout<<"==================================="<<endl;
+        cout<<"-----------------------------------"<<endl;
+        cout<<"Pesanan atas nama : "<<nk<<endl;
+        cout<<"Deskripsi\tJumlah\tharga\tsubtotal"<<endl;
+        cout<<"-----------------------------------"<<endl;
+        for(i=0;i<jumlahtiket;i++){
+            cout<<i+1<<" "<<namafilm[pilihanfilm-1]<<"-"<<kursi[i]<<"\t"<<"1"<<"\t"<<hargafilm[pilihanfilm-1]<<"K\t"<<hargafilm[pilihanfilm-1]<<"K"<<endl;
+        }
+        for(i=0;i<pesananmenu.size();i++){
+            cout<<i+jumlahtiket+1<<" "<<namamenu[pesananmenu[i]-1]<<"\t"<<banyakpesanan[i]<<"\t"<<hargamenu[pesananmenu[i]-1]<<"K\t"<<subtotal[i+1]<<"K"<<endl;
+        }
+        cout<<"-----------------------------------"<<endl;
+        cout<<"Total yang harus dibayar = "<<total<<"K"<<endl;
+        cout<<"==================================="<<endl;
+        cout<<"Ingin memesan pesanan baru?(Y/N)";
+        string inginulang;
+        cin>>inginulang;
+        if(inginulang=="n"||inginulang=="N"){
+            ulang=false;
+        }else{
+            ulang=true;
+            modepengembang=true;
+            pesanmenu=true;
+            kursi.clear();
+            pesananmenu.clear();
+            banyakpesanan.clear();
+            subtotal.clear();
+        }
+    cin.ignore();
+    }
+    while(ulang);
+            
+}
